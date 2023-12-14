@@ -27,6 +27,7 @@ export interface TableRowProps {
 }
 
 // type RowKey<T> = T;
+// type RowKey<K>= keyof K
 export interface IFormatedTableData {
   [accessor: TableColumn["accessor"]]: TableRowProps;
 }

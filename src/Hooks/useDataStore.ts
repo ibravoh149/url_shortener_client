@@ -8,11 +8,14 @@ const useDataStore = () => {
 
   const addEntry = () => {};
 
-  const searchEntry = () => {};
+  const searchEntry = (string:string) => {
+    // return state.find()
+  };  
 
   const trackEntryClicks = (id: string) => {};
 
-  const getEntries = (page: number, size: number) => {
+  const getEntries = (page: number, size: number, searchString?:string) => {
+    if(searchString) return  paginate(searchEntry)
     return paginate({ list: state, pageNumber: page, perPage: size });
   };
 
