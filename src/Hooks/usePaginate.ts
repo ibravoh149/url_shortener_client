@@ -1,17 +1,18 @@
-type Paginate = {
-  list: Record<string, any>[];
+type Paginate<T> = {
+  list: T;
+  // list: Record<string, any>[];
   perPage?: number;
   pageNumber?: number;
 };
-type PaginatedResponse = {
+type PaginatedResponse<T> = {
   hasNextPage: boolean;
   hasPrevousPage: boolean;
   pageCount: number;
-  data: Paginate["list"];
+  data: T[];
   pageNumber: number;
 };
-const usePaginatateHook = ({ list, perPage = 5, pageNumber = 1 }: Paginate) => {
-  const paginate = (): PaginatedResponse => {
+const usePaginatateHook =<T=[]>() => {
+  const paginate = ({ list, perPage = 5, pageNumber = 1 }: Paginate<T[]>): PaginatedResponse<T> => {
     const totalPages = Math.ceil(Number(list.length) / Number(perPage));
     const offset = Number(pageNumber - 1) * perPage;
     if (perPage >= list.length) {
@@ -35,7 +36,7 @@ const usePaginatateHook = ({ list, perPage = 5, pageNumber = 1 }: Paginate) => {
     };
   };
 
-  const _truncate = (list: Paginate["list"], start: number, end: number) => {
+  const _truncate = (list:T[], start: number, end: number) => {
     return list.slice(start, end);
   };
 

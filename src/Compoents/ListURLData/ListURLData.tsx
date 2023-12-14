@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Table, TableColumn } from "..";
 import { formatDate } from "../../utils";
+import { useDataStore, useDebounceQuery } from "../../Hooks";
 
 const columns: TableColumn[] = [
   { accessor: "shortLink", value: "Short Link" },
@@ -11,6 +12,12 @@ const columns: TableColumn[] = [
 ];
 
 export default function ListUrlData() {
+  const { getEntries, state } = useDataStore();
+
+  useDebounceQuery(() => {
+    console.log(getEntries(1, 10));
+  }, [state]);
+
   return (
     <div className="w-full max-w-6xl m-auto">
       <Table
