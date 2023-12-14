@@ -14,6 +14,7 @@ export default function Table(props: TableProps) {
     loading,
     pagination,
     debounceSearchDuration = 500,
+    searchClass,
     shouldDebounceSearch = true, /// debounce search by default
   } = props;
 
@@ -30,11 +31,11 @@ export default function Table(props: TableProps) {
 
   const debouncedValue = useDebounce(search, debounceSearchDuration);
 
-  useDebounceQuery(()=>{
+  useDebounceQuery(() => {
     if (shouldDebounceSearch) {
       paginationRef.current?.setSearch?.(search);
     }
-  },[debouncedValue, shouldDebounceSearch])
+  }, [debouncedValue, shouldDebounceSearch]);
 
   return (
     <div className="mt-6 relative overflow-y-hidden">
@@ -42,18 +43,18 @@ export default function Table(props: TableProps) {
         className={`flex w-full justify-between mb-5 sm:mb-0 flex-col md:flex-row`}
       >
         <div className="flex flex-col justify-start sm:flex-row sm:items-center">
-          <div className="relative ml-0 sm:ml-4">
+          <div className="relative ml-0">
             <Input
               placeholder="Search item"
               type={"text"}
-              className="w-full md:min-w-[21.875rem] sm:min-w-[12rem] mt-0 bg-[#EDEDEE] text-sm !rounded"
+              className={`w-full md:min-w-[21.875rem] sm:min-w-[12rem] mt-0 bg-[#EDEDEE] text-sm !rounded ${searchClass}`}
               onChange={onSearch}
             />
-            <CiSearch
-              size={16}
-              color="#A0A4A8"
-              className="absolute top-3.5 bottom-0 right-3 bg-[#EDEDEE]"
-            />
+              <CiSearch
+                size={16}
+                color="#A0A4A8"
+                className="absolute top-3.5 bottom-0 right-3"
+              />
           </div>
         </div>
       </div>
