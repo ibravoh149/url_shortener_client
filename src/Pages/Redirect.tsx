@@ -25,7 +25,7 @@ export default function Redirect() {
   }, [performRedirect]);
 
   return (
-    <div className="bg-tetiary h-screen flex items-center justify-center w-full">
+    <div className="bg-[#0E131E] h-screen flex items-center justify-center w-full">
       {loading && <SpinnerLoader />}
       {invalid && (
         <h3 className="text-transparent text-4xl min-h-[3.5rem] my-4 font-bold text-center">

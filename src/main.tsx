@@ -10,7 +10,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Suspense
       fallback={
-        <div className="bg-tetiary h-screen flex items-center justify-center">
+        <div className="bg-[#0E131E] h-screen flex items-center justify-center">
           <SpinnerLoader />
         </div>
       }
