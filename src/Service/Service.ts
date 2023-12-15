@@ -23,7 +23,7 @@ class Service extends BaseService {
 
   private fetchStore() {
     const store = this.store.getItem(this.store_key);
-    if (!store) {
+    if (!store || store === "undefined") {
       return this.setupStore();
     }
     return this.parseData(store);
@@ -36,6 +36,10 @@ class Service extends BaseService {
 
   private store_data(payload: DataStore[]) {
     this.store.setItem(this.store_key, JSON.stringify(payload));
+  }
+
+  public async rehydrate_store(payload: DataStore[]) {
+    this.store_data(payload);
   }
 
   public async loadData(): Promise<DataStore[]> {
@@ -52,8 +56,8 @@ class Service extends BaseService {
   public async updateData(payload: DataStore[]): Promise<void> {
     try {
       let store = this.fetchStore();
-      payload= payload.concat(store)
-    //  store= store.concat(payload);
+      payload = payload.concat(store);
+      //  store= store.concat(payload);
       this.store_data(payload);
     } catch (error) {
       throw error;
