@@ -29,9 +29,12 @@ export default function Form() {
 
   const submit = async (payload: any) => {
     const res = addEntry(payload.link);
+    navigator.clipboard.writeText(res.shortLink);
     setRecent(res);
     await timeout(500);
     reset();
+    await timeout(3000);
+    setRecent(undefined)
   };
 
   return (
@@ -65,17 +68,8 @@ export default function Form() {
           labelClass="!text-tableText !text-sm"
         /> */}
         {recent && (
-          <span>
-            Hurray!, here is you just generated link :
-            <span className="text-pink-400 text-lg flex items-center">
-              {recent?.shortLink}
-              <CopyBox
-                text={recent?.shortLink ?? ""}
-                copyComplete={() => {
-                  setRecent(undefined);
-                }}
-              />
-            </span>
+          <span className="text-pink-400 text-lg flex items-center">
+            Hurray! You link has been automatically copied to clipboard
           </span>
         )}
       </div>
