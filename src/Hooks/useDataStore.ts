@@ -24,6 +24,7 @@ const useDataStore = () => {
       type: ActionTypes.ADD_ENTRY,
       payload,
     });
+    return payload
   };
 
   const searchEntry = (string: string): DataStore[] => {

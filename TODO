@@ -1,7 +1,4 @@
 modal to show shortened url
 auto paste from clipboard
-long url image viewer (should be able to cache image)
-test
-more test
 add loader while fetch url from store
 an empty state to show that requested url is not available
