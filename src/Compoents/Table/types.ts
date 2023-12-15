@@ -16,7 +16,8 @@ export type TableProps = {
   pagination?: PaginationProps;
   debounceSearchDuration?: number; // millisecons
   shouldDebounceSearch?: boolean;
-  searchClass?:string
+  searchClass?: string;
+  searcePlaceholder?: string;
 };
 
 export interface TableRowProps {

@@ -20,13 +20,14 @@ export default function ListUrlData() {
     search: "",
   });
   const data = useMemo(
-    () => getEntries(paging.page, paging.size as number),
+    () => getEntries(paging.page, paging.size as number, paging.search as string),
     [state, paging]
   );
 
   return (
     <div className="w-full max-w-6xl m-auto">
       <Table
+      searcePlaceholder="Enter min. of 3 chars. of original url to search"
         searchClass="bg-secondary text-tableText focus:border-tableText focus:ring-0"
         column={columns}
         data={formattedTableData(data.data)}

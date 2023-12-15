@@ -45,16 +45,17 @@ export default function Table(props: TableProps) {
         <div className="flex flex-col justify-start sm:flex-row sm:items-center">
           <div className="relative ml-0">
             <Input
-              placeholder="Search item"
-              type={"text"}
+              placeholder={props.searcePlaceholder ?? "Search item"}
+              type={"search"}
               className={`w-full md:min-w-[21.875rem] sm:min-w-[12rem] mt-0 bg-[#EDEDEE] text-sm !rounded ${searchClass}`}
               onChange={onSearch}
             />
-              <CiSearch
-                size={16}
-                color="#A0A4A8"
-                className="absolute top-3.5 bottom-0 right-3"
-              />
+           
+            {search.length <= 0 &&<CiSearch
+              size={16}
+              color="#A0A4A8"
+              className="absolute top-3.5 bottom-0 right-3"
+            />}
           </div>
         </div>
       </div>
