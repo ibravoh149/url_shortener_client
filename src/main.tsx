@@ -4,10 +4,17 @@ import "./index.css";
 import { RouterProvider } from "react-router-dom";
 import { routes } from "./Router/index.ts";
 import { DataProvider } from "./Provider/DataStoreProvider/DataStoreProvider.tsx";
+import { SpinnerLoader } from "./Compoents/index.ts";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <Suspense fallback={<div>loading...</div>}>
+    <Suspense
+      fallback={
+        <div className="bg-[#0E131E] h-screen flex items-center justify-center">
+          <SpinnerLoader />
+        </div>
+      }
+    >
       <DataProvider>
         <RouterProvider router={routes} />
       </DataProvider>

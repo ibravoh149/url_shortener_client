@@ -1,5 +1,5 @@
-import React from "react";
-import { Button, ErrorField, Input, SwitchInput } from "..";
+import React, { useState } from "react";
+import { Button, ErrorField, Input, ListURL, SwitchInput } from "..";
 import { GoLink } from "react-icons/go";
 import { FaArrowRightLong } from "react-icons/fa6";
 import * as yup from "yup";
@@ -7,9 +7,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { useDataStore } from "../../Hooks";
 import { timeout } from "../../utils";
+import CopyBox from "../Common/Copy";
 
 export default function Form() {
   const { addEntry } = useDataStore();
+  const [recent, setRecent] = useState<ListURL>();
 
   const schema = yup.object({
     link: yup.string().url("Invalid url").required("Please provide url"),
@@ -25,10 +27,14 @@ export default function Form() {
     mode: "onChange",
   });
 
-  const submit = async(payload: any) => {
-    addEntry(payload.link);
+  const submit = async (payload: any) => {
+    const res = addEntry(payload.link);
+    navigator.clipboard.writeText(res.shortLink);
+    setRecent(res);
     await timeout(500);
-    reset()
+    reset();
+    await timeout(3000);
+    setRecent(undefined)
   };
 
   return (
@@ -61,6 +67,11 @@ export default function Form() {
           label="Auto Paste from Clipboard"
           labelClass="!text-tableText !text-sm"
         /> */}
+        {recent && (
+          <span className="text-pink-400 text-lg flex items-center">
+            Hurray! You link has been automatically copied to clipboard
+          </span>
+        )}
       </div>
       <p className="text-tableText text-center text-sm">
         You can create as <span className="text-[#EB568E]"> many</span> links as
