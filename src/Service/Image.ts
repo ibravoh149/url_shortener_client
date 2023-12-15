@@ -25,7 +25,6 @@ export class ImageCache{
       if (this.imageCaches[src] instanceof Promise) {
         throw this.imageCaches[src];
       }
-      console.log(this.imageCaches)
       return this.imageCaches[src];
     }
 }
