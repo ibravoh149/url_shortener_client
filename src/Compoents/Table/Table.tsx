@@ -67,7 +67,7 @@ export default function Table(props: TableProps) {
                 return (
                   <th
                     key={i}
-                    className="text-left py-2.5 px-4 text-sm text-tableText items-center bg-tetiary"
+                    className="text-left py-2.5 text-sm text-tableText items-center bg-tetiary"
                   >
                     {item.value}
                   </th>

@@ -25,7 +25,7 @@ const pageSizeList:ISelectListItem[] = [
 
 export const TablePagination = React.forwardRef<PaginationRef, PaginationProps>(
   (props, ref) => {
-    const defaultPage=1
+    const defaultPage=0
     const [activePage, setActivePage] = useState<number>(defaultPage);
     const [search, setSearch] = useState<string | null>(null);
     const [size, setSize] = useState(props.defaultPageSize || 10);

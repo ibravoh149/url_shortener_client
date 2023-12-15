@@ -20,7 +20,7 @@ export default function ListUrlData() {
     search: "",
   });
   const data = useMemo(
-    () => getEntries(paging.page, paging.size as number, paging.search as string),
+    () => getEntries(paging.page || 1, paging.size as number, paging.search as string),
     [state, paging]
   );
 
@@ -32,6 +32,7 @@ export default function ListUrlData() {
         column={columns}
         data={formattedTableData(data.data)}
         pagination={{
+          defaultPageSize:5,
           totalPages: data.pageCount,
            onPageChange(payload) {
             setPaging(payload);

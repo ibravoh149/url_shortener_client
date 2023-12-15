@@ -51,9 +51,10 @@ class Service extends BaseService {
 
   public async updateData(payload: DataStore[]): Promise<void> {
     try {
-      const store = this.fetchStore();
-      store.concat(payload);
-      this.store_data(store);
+      let store = this.fetchStore();
+      payload= payload.concat(store)
+    //  store= store.concat(payload);
+      this.store_data(payload);
     } catch (error) {
       throw error;
     }

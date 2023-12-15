@@ -1,14 +1,30 @@
 import React from "react";
 import { DataProviderContext } from "../Provider/DataStoreProvider";
 import { usePaginate } from ".";
-import { DataStore } from "../Provider/DataStoreProvider/types";
+import { ActionTypes, DataStore } from "../Provider/DataStoreProvider/types";
 import { removeWhiteSpace } from "../utils/removeWhiteSpace";
+import { customAlphabet, urlAlphabet } from "nanoid";
+import Service from "../Service/Service";
 const min_search_value_length = 3;
 const useDataStore = () => {
   const { state, dispatch } = React.useContext(DataProviderContext);
   const { paginate } = usePaginate<DataStore>();
 
-  const addEntry = () => {};
+  const addEntry = (url: string) => {
+    const hash = customAlphabet(urlAlphabet, 5)();
+    const payload: DataStore = {
+      id: hash,
+      originalLink: url,
+      shortLink: `${location.origin}/${hash}`,
+      clicks: 0,
+      date: new Date().toISOString(),
+    };
+    Service.instance.updateData([payload]);
+    dispatch({
+      type: ActionTypes.ADD_ENTRY,
+      payload,
+    });
+  };
 
   const searchEntry = (string: string): DataStore[] => {
     return state.filter((entry) =>

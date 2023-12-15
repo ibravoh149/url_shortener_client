@@ -2,9 +2,10 @@ import React from "react";
 import Form from "./Form";
 
 export default function URLForm() {
+
   return (
-    <div className="w-full py-12 max-w-2xl m-auto">
-      <h3 className="text-transparent text-4xl min-h-[3.5rem] py-8 font-bold text-center">
+    <div className="w-full py-3 max-w-2xl m-auto">
+      <h3 className="text-transparent text-4xl min-h-[3.5rem] my-4 font-bold text-center">
         <span className="bg-gradient-to-br from-[#144EE3] to-[#EB568E] bg-clip-text">
           Shorten
         </span>{" "}
