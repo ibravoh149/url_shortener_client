@@ -7,6 +7,7 @@ export default function CopyBox({ text }: { text: string }) {
 
   const triggerCopy = useCallback(async () => {
     setIsCopied(true);
+    navigator.clipboard.writeText(text)
     await timeout(3000);
     setIsCopied(false);
   }, [text]);

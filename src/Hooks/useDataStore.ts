@@ -29,9 +29,18 @@ const useDataStore = () => {
   const searchEntry = (string: string): DataStore[] => {
     return state.filter((entry) =>
       removeWhiteSpace(entry.originalLink)
-        .toLocaleLowerCase()
-        .includes(removeWhiteSpace(string).toLocaleLowerCase())
+        .toLowerCase()
+        .includes(removeWhiteSpace(string).toLowerCase())
     );
+  };
+
+  const retrievEntry = async (hash: string) => {
+    let datas =
+      state && state.length > 0 ? state : await Service.instance.loadData();
+    const data = datas.find(
+      (item) => item?.id?.toLowerCase() === hash.toLowerCase()
+    );
+    return data;
   };
 
   const trackEntryClicks = (id: string) => {};
@@ -46,6 +55,6 @@ const useDataStore = () => {
     return paginate({ list: state, pageNumber: page, perPage: size });
   };
 
-  return { addEntry, searchEntry, trackEntryClicks, getEntries, state };
+  return { addEntry, trackEntryClicks, getEntries, state, retrievEntry };
 };
 export default useDataStore;
