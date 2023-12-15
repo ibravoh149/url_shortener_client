@@ -16,7 +16,8 @@ export type TableProps = {
   pagination?: PaginationProps;
   debounceSearchDuration?: number; // millisecons
   shouldDebounceSearch?: boolean;
-  searchClass?:string
+  searchClass?: string;
+  searcePlaceholder?: string;
 };
 
 export interface TableRowProps {
@@ -27,6 +28,7 @@ export interface TableRowProps {
 }
 
 // type RowKey<T> = T;
+// type RowKey<K>= keyof K
 export interface IFormatedTableData {
   [accessor: TableColumn["accessor"]]: TableRowProps;
 }

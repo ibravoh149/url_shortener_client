@@ -25,21 +25,22 @@ const pageSizeList:ISelectListItem[] = [
 
 export const TablePagination = React.forwardRef<PaginationRef, PaginationProps>(
   (props, ref) => {
-    const [activePage, setActivePage] = useState<number>(0);
+    const defaultPage=0
+    const [activePage, setActivePage] = useState<number>(defaultPage);
     const [search, setSearch] = useState<string | null>(null);
     const [size, setSize] = useState(props.defaultPageSize || 10);
 
     React.useImperativeHandle(ref, () => ({
       setSearch(string) {
         setSearch(string);
-        setActivePage(0);
-        props.onPageChange?.({ page: 0, search: string, size });
+        setActivePage(defaultPage);
+        props.onPageChange?.({ page: defaultPage+1, search: string, size });
       },
     }));
 
     const handlePageClick = (selectedItem: { selected: number }) => {
       props.onPageChange?.({
-        page: selectedItem.selected,
+        page: selectedItem.selected+1,
         search,
         size,
       });
@@ -53,16 +54,16 @@ export const TablePagination = React.forwardRef<PaginationRef, PaginationProps>(
     const onSizeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
       const size = Number(e.target.value);
       setSize(size);
-      props.onPageChange?.({ page: activePage, search, size });
+      props.onPageChange?.({ page: activePage+1, search, size });
     };
 
     return (
-      <div className="flex-wrap items-center justify-between mt-5 mb-5 text-sm sm:flex text-textPrimary">
+      <div className="flex-wrap items-center justify-between mt-5 mb-5 text-sm sm:flex text-tableText">
         {(props.totalPages as number) > 0 && (
           <ReactPaginate
             activeClassName="bg-primary text-sm text-white rounded-lg"
             pageClassName="px-2"
-            className="flex justify-around overflow-x-auto text-textPrimary"
+            className="flex justify-around overflow-x-auto"
             breakLabel="..."
             nextLabel=" Next"
             onPageChange={handlePageClick}

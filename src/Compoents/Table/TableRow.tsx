@@ -9,12 +9,12 @@ export default function TableRow(props: any) {
         return (
           <td
             key={i}
-            className={`text-left py-6 px-4 text-sm text-tableText ${value.className}`}
+            className={`text-left py-6 text-sm text-tableText ${value.className}`}
           >
             {React.isValidElement(value.value) ? (
               value.value
             ) : (
-              <span> {value.value}</span>
+              <span className="min-w-5"> {value.value}</span>
             )}
           </td>
         );

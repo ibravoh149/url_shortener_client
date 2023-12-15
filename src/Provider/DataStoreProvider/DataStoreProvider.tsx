@@ -1,7 +1,9 @@
 import React from "react";
-import { Action, DataStore } from "./types";
+import { Action, ActionTypes, DataStore } from "./types";
 import { initialState } from "./helpers";
 import { Reducer } from "./Reducer";
+import { useDebounceQuery } from "../../Hooks";
+import Service from "../../Service/Service";
 
 export const DataProviderContext = React.createContext<{
   state: DataStore[];
@@ -10,9 +12,18 @@ export const DataProviderContext = React.createContext<{
 
 export const DataProvider = ({
   children,
-}: React.PropsWithChildren<React.ReactNode>) => {
+}: React.PropsWithChildren) => {
   const [state, dispatch] = React.useReducer(Reducer, initialState);
   const memoizedState = React.useMemo(() => state, [state]);
+
+  useDebounceQuery(()=>{
+    Service.instance.loadData().then((data)=>{
+      dispatch({
+        type:ActionTypes.INITIALIZE,
+        payload:data
+      })
+    }).catch((error)=>console.warn(error))
+  },[])
 
   return (
     <DataProviderContext.Provider
