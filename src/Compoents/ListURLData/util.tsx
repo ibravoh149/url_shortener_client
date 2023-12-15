@@ -1,5 +1,5 @@
 import React from "react";
-import { IFormatedTableData, ListURL } from "..";
+import { IFormatedTableData, Image, ListURL } from "..";
 import { formatDate } from "../../utils";
 import CopyBox from "../Common/Copy";
 
@@ -12,7 +12,13 @@ export const formattedTableData = (data: ListURL[]): IFormatedTableData[] => {
         </span>
       ),
     },
-    originalLink: { value: item.originalLink },
+    originalLink: {
+      value: (
+        <span className="flex items-center gap-2">
+          <Image src={item.originalLink} /> {item.originalLink}
+        </span>
+      ),
+    },
     clicks: { value: item.clicks },
     date: { value: formatDate(item.date as string) },
   }));
