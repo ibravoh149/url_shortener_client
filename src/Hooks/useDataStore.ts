@@ -35,15 +35,27 @@ const useDataStore = () => {
   };
 
   const retrievEntry = async (hash: string) => {
-    let datas =
+    let list =
       state && state.length > 0 ? state : await Service.instance.loadData();
-    const data = datas.find(
-      (item) => item?.id?.toLowerCase() === hash.toLowerCase()
+    const dataIndex = list.findIndex(
+      (item) => item.id?.toLowerCase() === hash.toLowerCase()
     );
+    const data = list[dataIndex];
+    trackEntryClicks(data, dataIndex, list);
     return data;
   };
 
-  const trackEntryClicks = (id: string) => {};
+  const trackEntryClicks = (
+    data: DataStore,
+    dataIndex: number,
+    list: DataStore[]
+  ) => {
+    if (dataIndex < 0) return;
+    // enpensive call here; this would have been a thing for server to handle
+    data.clicks = Number(data.clicks) + 1;
+    list[dataIndex] = data;
+    Service.instance.rehydrate_store(list);
+  };
 
   const getEntries = (page: number, size: number, searchString?: string) => {
     if (searchString && searchString.length > min_search_value_length)
