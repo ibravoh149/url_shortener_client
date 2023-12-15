@@ -57,10 +57,10 @@ export default function Form() {
       </div>
       <>{ErrorField(errors.link?.message as string)}</>
       <div className="flex justify-center items-center my-5 text-red-50">
-        <SwitchInput
+        {/* <SwitchInput
           label="Auto Paste from Clipboard"
           labelClass="!text-tableText !text-sm"
-        />
+        /> */}
       </div>
       <p className="text-tableText text-center text-sm">
         You can create as <span className="text-[#EB568E]"> many</span> links as
